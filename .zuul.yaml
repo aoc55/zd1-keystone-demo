@@ -1,0 +1,86 @@
+# ======================== [ Job ] ========================
+
+# [ tox 기반의 Python Test ]
+#- job:
+#    name: zuul-keystone-demo-openstack-tox-py312
+#    parent: openstack-tox-py312
+#    branches:
+#      - "stable/2025.1"
+#    nodeset:
+#      nodes:
+#       - name: controller
+#         label: epc-ubuntu-vm
+#    irrelevant-files: []
+#
+#
+## [ Devstack + Tempest 기반의 Test ]
+#
+#- job:
+#    name: keystone-dsvm-functional
+#    parent: devstack-tempest
+#    timeout: 4200
+#    required-projects:
+#      - openstack/keystone
+#      - openstack/keystone-tempest-plugin
+#    vars:
+#      tox_envlist: all
+#      tempest_test_regex: "keystone_tempest_plugin"
+#      devstack_localrc:
+#        TEMPEST_PLUGINS: "/opt/stack/keystone-tempest-plugin"
+#
+#- job:
+#    name: zuul-keystone-demo-dsvm-functional
+#    parent: keystone-dsvm-functional
+#    nodeset: devstack-single-node-epc
+#    timeout: 4200
+#    required-projects:
+#      - openstack/keystone
+#      - openstack/keystone-tempest-plugin
+#    vars:
+#      tox_envlist: all
+#      tempest_test_regex: "keystone_tempest_plugin"
+#      devstack_localrc:
+#        TEMPEST_PLUGINS: "/opt/stack/keystone-tempest-plugin"
+#        # << static Node 사용에 의한 임시 처리 >>
+#        # - EPC 노드는 nodepool 미사용 → devstack-minimal의 nodepool/ansible 템플릿 우회
+#        # - Zuul이 인벤토리 직렬화 시 Jinja2 템플릿 평가를 시도하므로 모두 plain 값으로 고정
+#        SERVICE_HOST: "172.25.88.121"
+#        HOST_IP: "172.25.88.121"
+#        PUBLIC_BRIDGE_MTU: "1430"
+#        DATABASE_PASSWORD: secretdatabase
+#        RABBIT_PASSWORD: secretrabbit
+#        ADMIN_PASSWORD: secretadmin
+#        SERVICE_PASSWORD: secretservice
+#    irrelevant-files: []
+
+# ======================== [ Project ] ========================
+
+- project:
+#    templates:
+#      - openstack-cover-jobs
+#      - openstack-python3-jobs
+#      - publish-openstack-docs-pti
+#      - periodic-stable-jobs
+#      - check-requirements
+#      - integrated-gate-py3
+#      - release-notes-jobs-python3
+#      - openstack-python3-jobs-arm64
+    check:
+      jobs:
+        - global-test-hello
+#        - zuul-keystone-demo-openstack-tox-py312
+#        - zuul-keystone-demo-dsvm-functional
+    gate:
+      jobs:
+        - global-test-hello
+#        - zuul-keystone-demo-openstack-tox-py312
+#        - zuul-keystone-demo-dsvm-functional
+    experimental:
+      jobs: []
+#        - keystone-tox-patch_cover
+#        - keystone-grenade-multinode:
+#            irrelevant-files: *irrelevant-files
+#        - openstack-ansible-keystone-rolling-upgrade:
+#            irrelevant-files: *irrelevant-files
+#        - tempest-pg-full:
+#            irrelevant-files: *tempest-irrelevant-files

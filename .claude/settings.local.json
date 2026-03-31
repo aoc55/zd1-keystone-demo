@@ -1,0 +1,13 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(pip show:*)",
+      "Bash(python -c \"from keystone.tests import unit\")",
+      "Bash(pip3 show:*)",
+      "Bash(python3 -c \"from keystone.tests import unit\")",
+      "Read(//home/aoc55/**)",
+      "Bash(/home/aoc55/aoc55-lab2/AOC55/zuul.ci/zuul-demo-workload/.venv/bin/pip show:*)",
+      "Bash(/home/aoc55/aoc55-lab2/AOC55/OPENSTACK-DEV/workspace/zuul-keystone-demo/.venv/bin/pip show:*)"
+    ]
+  }
+}
