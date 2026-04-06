@@ -1,0 +1,12 @@
+# setup-devstack-source-dirs가 /opt/stack/keystone에 upstream keystone을 올려두므로
+# 이 playbook에서 fork(aoc55/zuul-keystone-demo)로 교체한다.
+# 이 pre-run은 job hierarchy 최하위에서 실행되므로 devstack/pre.yaml 이후에 동작한다.
+- hosts: all
+  become: true
+  tasks:
+    - name: Replace upstream keystone with fork (aoc55/zd1-keystone-demo)
+      shell: |
+        rm -rf /opt/stack/keystone
+        cp -a /home/zuul/src/github.com/aoc55/zd1-keystone-demo /opt/stack/keystone
+        chown -R stack:stack /opt/stack/keystone
+
