@@ -5,7 +5,7 @@
     name: zuul-keystone-demo-openstack-tox-py312
     parent: openstack-tox-py312
     branches:
-      - main
+      - "ktc-stable/2025.1"
       # - "stable/2025.1"
     nodeset: aoc55-osp-vm-basic-nodeset
 #      nodes:
