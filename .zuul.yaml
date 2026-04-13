@@ -84,14 +84,14 @@
 #      - openstack-python3-jobs-arm64
     check:
       jobs:
-        # - global-test-hello
+         - global-test-hello
         # - zuul-keystone-demo-openstack-tox-py312
-        - zuul-keystone-demo-dsvm-functional
+#        - zuul-keystone-demo-dsvm-functional
     gate:
       jobs:
-        # - global-test-hello
+         - global-test-hello
         # - zuul-keystone-demo-openstack-tox-py312
-        - zuul-keystone-demo-dsvm-functional
+#        - zuul-keystone-demo-dsvm-functional
     experimental:
       jobs: []
 #        - keystone-tox-patch_cover
